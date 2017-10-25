@@ -1,6 +1,6 @@
 # Proyecto-DS
-Integrantes del equipo
-Juan diego Ordoñez
-Fabian Ovalle
-Daniel Calero
-David Mera
+## Integrantes del equipo
+1. Juan diego Ordoñez
+1. Fabian Ovalle
+1. Daniel Calero
+1. David Mera
