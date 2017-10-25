@@ -93,3 +93,5 @@ INSERT INTO usuario VALUES ('jose', 'torres', 'nuevo123', '5531417', 'gerente', 
 /**Datos de operador*/
 INSERT INTO usuario VALUES ('ana', 'silva', 'nueva123', '5540112', 'operador', 'activo', 'ana@gmail.com');
 
+/**Datos sede*/
+INSERT INTO sede VALUES ('eventos del sur', 'cra 80 # 15-21', 02, 'Cali');
