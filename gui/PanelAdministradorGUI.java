@@ -3,7 +3,6 @@ package gui;
  * @author juan diego ordonnez
  */
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -57,6 +55,11 @@ public class PanelAdministradorGUI extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnCrearUsuario = new JButton("Crear usuario");
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				botonCrearUsuarioActionPerformed(evt);
+			}
+		});
 		btnCrearUsuario.setForeground(new Color(255, 255, 255));
 		btnCrearUsuario.setBackground(new Color(0, 0, 0));
 		btnCrearUsuario.setBounds(87, 76, 144, 23);
@@ -65,7 +68,8 @@ public class PanelAdministradorGUI extends JFrame {
 		JButton btnModificarUsuario = new JButton("Modificar usuario");
 		btnModificarUsuario.setBackground(new Color(0, 0, 0));
 		btnModificarUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent evt) {
+				botonModificarUsuarioActionPerformed(evt);
 			}
 		});
 		btnModificarUsuario.setForeground(new Color(255, 255, 255));
@@ -84,5 +88,18 @@ public class PanelAdministradorGUI extends JFrame {
 		btnSalir.setBounds(115, 217, 96, 23);
 		contentPane.add(btnSalir);
 	}
-
+	
+	//Metodo que se encarga del evento del boton Cancelar
+	private void botonCrearUsuarioActionPerformed( ActionEvent evt ){
+		CrearUsuarioGUI aplicacion1 = new CrearUsuarioGUI();
+		aplicacion1.setVisible(true);
+		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+	
+	//Metodo que se encarga del evento del boton Cancelar
+	private void botonModificarUsuarioActionPerformed( ActionEvent evt ){
+		ModificarUsuarioGUI aplicacion1 = new ModificarUsuarioGUI();
+		aplicacion1.setVisible(true);
+		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
 }

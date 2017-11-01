@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import logica.Login;
+import java.awt.Font;
 
 public class LoginGUI {
 
@@ -67,7 +68,7 @@ public class LoginGUI {
 		frmAccesoAlSistema.setForeground(new Color(30, 144, 255));
 		frmAccesoAlSistema.setTitle("ACCESO AL SISTEMA");
 		frmAccesoAlSistema.setBackground(new Color(30, 144, 255));
-		frmAccesoAlSistema.setBounds(100, 100, 450, 300);
+		frmAccesoAlSistema.setBounds(100, 100, 407, 283);
 		frmAccesoAlSistema.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAccesoAlSistema.getContentPane().setLayout(null);
 		
@@ -75,28 +76,31 @@ public class LoginGUI {
 		campoUsuario = new JTextField();
 		campoUsuario.setForeground(new Color(0, 0, 0));
 		campoUsuario.setBackground(new Color(204, 255, 255));
-		campoUsuario.setBounds(193, 89, 122, 20);
+		campoUsuario.setBounds(180, 90, 122, 20);
 		frmAccesoAlSistema.getContentPane().add(campoUsuario);
 		campoUsuario.setColumns(10);
 		
 		//Se establece la etiqueta Usuario
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(101, 92, 59, 14);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblUsuario.setBounds(87, 92, 59, 14);
 		frmAccesoAlSistema.getContentPane().add(lblUsuario);
 		
 		//Se establece la etiqueta contrasenna
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(101, 123, 72, 14);
+		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblContrasea.setBounds(87, 122, 83, 14);
 		frmAccesoAlSistema.getContentPane().add(lblContrasea);
 		
 		//Se establece el campo de texto Contrasenna
 		campoPassword = new JPasswordField();
 		campoPassword.setBackground(new Color(204, 255, 255));
-		campoPassword.setBounds(193, 120, 122, 20);
+		campoPassword.setBounds(180, 120, 122, 20);
 		frmAccesoAlSistema.getContentPane().add(campoPassword);
 		
 		//Se establece el boton Ingresar
 		botonIngresar = new JButton("Ingresar");
+		botonIngresar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		botonIngresar.setForeground(new Color(255, 255, 255));
 		botonIngresar.setMnemonic('I');
 		botonIngresar.setToolTipText("");
@@ -106,11 +110,12 @@ public class LoginGUI {
 			}
 		});
 		botonIngresar.setBackground(new Color(0, 0, 0));
-		botonIngresar.setBounds(111, 176, 97, 33);
+		botonIngresar.setBounds(98, 176, 97, 33);
 		frmAccesoAlSistema.getContentPane().add(botonIngresar);
 		
 		//Se establece el boton Cancelar
 		botonCancelar = new JButton("Cancelar");
+		botonCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		botonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				botonCancelarActionPerformed(evt);
@@ -119,7 +124,7 @@ public class LoginGUI {
 		botonCancelar.setMnemonic('C');
 		botonCancelar.setForeground(new Color(255, 255, 255));
 		botonCancelar.setBackground(new Color(0, 0, 0));
-		botonCancelar.setBounds(218, 176, 97, 33);
+		botonCancelar.setBounds(205, 176, 97, 33);
 		frmAccesoAlSistema.getContentPane().add(botonCancelar);
 	}
 	
@@ -146,12 +151,21 @@ public class LoginGUI {
 			JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
 		} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
 			tipo = l.getTipo();
-			if ( tipo.equals("administrador") ){
-				
-			} else if ( tipo.equals("gerente") ){
-				
-			} else if (tipo.equals("operador")){
-				
+			
+			if ( (tipo!=null) && tipo.equals("administrador") ){
+				PanelAdministradorGUI aplicacion1 = new PanelAdministradorGUI();
+				aplicacion1.setVisible(true);
+				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			} else if ( (tipo!=null) && tipo.equals("gerente") ){
+				//CreaUsuarioGUI aplicacion1 = new CreaUsuarioGUI;
+				//aplicacion1.setVisible(true);
+				//aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			} else if ((tipo!=null) && tipo.equals("operador")){
+				PanelOperadorGUI aplicacion1 = new PanelOperadorGUI();
+				aplicacion1.setVisible(true);
+				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			} else if ( (tipo==null) ){
+				JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
 			}
 		}
 		

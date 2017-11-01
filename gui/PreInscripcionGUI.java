@@ -4,12 +4,14 @@ package gui;
  */
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import controlador.ControladorPreInscripcion;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -18,12 +20,17 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PreInscripcionGUI {
+public class PreInscripcionGUI extends JFrame {
 
-	private JFrame frmRealiza;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private JPanel contentPane;
 	
-	//Se inicia el objeto ControladorModificarUsuario
 	ControladorPreInscripcion controladorPreInscripcion;
+
 	private JTextField campoEvento;
 	private JTextField campoParticipante;
 	private JTextField campoCedula;
@@ -36,8 +43,8 @@ public class PreInscripcionGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PreInscripcionGUI window = new PreInscripcionGUI();
-					window.frmRealiza.setVisible(true);
+					PreInscripcionGUI frame = new PreInscripcionGUI();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,69 +53,61 @@ public class PreInscripcionGUI {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public PreInscripcionGUI() {
-		initialize();
-		controladorPreInscripcion = new ControladorPreInscripcion();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmRealiza = new JFrame();
-		frmRealiza.setTitle("Realizar Preinscripcion");
-		frmRealiza.setBounds(100, 100, 400, 260);
-		frmRealiza.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmRealiza.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 153, 255));
-		panel.setBounds(0, 0, 384, 222);
-		frmRealiza.getContentPane().add(panel);
-		panel.setLayout(null);
+		controladorPreInscripcion = new ControladorPreInscripcion();
+		
+		setTitle("Realizar Preinscripcion");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JLabel lblNonbreEvento = new JLabel("Nombre Evento:");
 		lblNonbreEvento.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNonbreEvento.setBounds(53, 57, 101, 14);
-		panel.add(lblNonbreEvento);
+		contentPane.add(lblNonbreEvento);
 		
 		campoEvento = new JTextField();
 		campoEvento.setBounds(186, 55, 161, 20);
-		panel.add(campoEvento);
+		contentPane.add(campoEvento);
 		campoEvento.setColumns(10);
 		
 		JLabel lblNombreParticipante = new JLabel("Nombre Participante:");
 		lblNombreParticipante.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNombreParticipante.setBounds(24, 82, 137, 14);
-		panel.add(lblNombreParticipante);
+		contentPane.add(lblNombreParticipante);
 		
 		JLabel lblCedula = new JLabel("Cedula:");
 		lblCedula.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblCedula.setBounds(108, 111, 50, 14);
-		panel.add(lblCedula);
+		contentPane.add(lblCedula);
 		
 		JLabel lblFecha = new JLabel("Fecha:");
 		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblFecha.setBounds(115, 136, 46, 14);
-		panel.add(lblFecha);
+		contentPane.add(lblFecha);
 		
 		campoParticipante = new JTextField();
 		campoParticipante.setBounds(186, 81, 161, 20);
-		panel.add(campoParticipante);
+		contentPane.add(campoParticipante);
 		campoParticipante.setColumns(10);
 		
 		campoCedula = new JTextField();
 		campoCedula.setToolTipText("Digite N\u00FAmeros");
 		campoCedula.setBounds(186, 108, 161, 20);
-		panel.add(campoCedula);
+		contentPane.add(campoCedula);
 		campoCedula.setColumns(10);
 		
 		campoFecha = new JTextField();
 		campoFecha.setToolTipText("El Formato de la fecha es DD-MM-AAAA, use el separador \"-\"");
 		campoFecha.setBounds(186, 134, 161, 20);
-		panel.add(campoFecha);
+		contentPane.add(campoFecha);
 		campoFecha.setColumns(10);
 		
 		JButton btnGuardar = new JButton("Guardar");
@@ -123,7 +122,7 @@ public class PreInscripcionGUI {
 		btnGuardar.setMnemonic('G');
 		btnGuardar.setForeground(new Color(255, 255, 255));
 		btnGuardar.setBounds(104, 170, 89, 23);
-		panel.add(btnGuardar);
+		contentPane.add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -137,7 +136,7 @@ public class PreInscripcionGUI {
 		btnCancelar.setMnemonic('C');
 		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.setBounds(220, 170, 89, 23);
-		panel.add(btnCancelar);
+		contentPane.add(btnCancelar);
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
@@ -146,26 +145,27 @@ public class PreInscripcionGUI {
 		System.out.println("Conexion cerrada...");
 		System.exit(0);
 	}
-	
+		
 	//Metodo que se encarga del evento del boton Ingresar
 	private void botonGuardarActionPerformed (ActionEvent evt ){
 			String nombreEvento, nombreParticipante, cedula, fecha;
-			
+				
 			nombreEvento = campoEvento.getText();
 			nombreParticipante = campoParticipante.getText();
 			cedula = campoCedula.getText();
 			fecha = campoFecha.getText();
-			
+				
 			int numFilas = controladorPreInscripcion.insertarPreInscripcion(nombreEvento, nombreParticipante, cedula, fecha);
-			
+				
 			if (nombreEvento.isEmpty() || nombreParticipante.isEmpty() || cedula.isEmpty() || fecha.isEmpty()){
-				JOptionPane.showMessageDialog(null, "Por favor recuerde llenar todos los campos");
+					JOptionPane.showMessageDialog(null, "Por favor recuerde llenar todos los campos");
 			} else if ( numFilas == 1 ){
-				
+					
 				JOptionPane.showMessageDialog(null, "La PreInscripcion se guardado exitosamente");
-				
+					
 			} else {
-				JOptionPane.showMessageDialog(null, "Ocurrio un problema al guardar la PreInscripcion en el Sistema");
+					JOptionPane.showMessageDialog(null, "Ocurrio un problema al guardar la PreInscripcion en el Sistema");
 			}
 		}
+
 }

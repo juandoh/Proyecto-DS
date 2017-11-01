@@ -5,9 +5,13 @@ package gui;
  *
  */
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import java.awt.Window.Type;
 
@@ -28,9 +32,9 @@ import javax.swing.JComboBox;
 
 import logica.Login;
 
-public class ModificarUsuarioGUI {
-	
-	private JFrame frmAccesoAlSistema;
+public class ModificarUsuarioGUI extends JFrame {
+
+	private JPanel contentPane;
 	private JTextField campoUsuario,campoNombres,campoApellidos,campoCedula,campoEmail;
     private JComboBox tipoUsuario,tipoEstado;
 	private JPasswordField campoPassword;
@@ -38,18 +42,19 @@ public class ModificarUsuarioGUI {
 	private JButton botonCancelar;
 	        String[] opcionesTipoU = {"Gerente", "Operador"};
                   String[] opcionesEstado = {"Activo", "Inactivo"};
-                  
 	
-    //Se inicia el objeto ControladorModificarUsuario
+	//Se inicia el objeto ControladorModificarUsuario
     ControladorUsuario controladorUsuario;
-	
-	//Iniciar la aplicación
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ModificarUsuarioGUI window = new ModificarUsuarioGUI();
-				window.frmAccesoAlSistema.setVisible(true);
+					ModificarUsuarioGUI frame = new ModificarUsuarioGUI();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,37 +63,29 @@ public class ModificarUsuarioGUI {
 	}
 
 	/**
-	 * Create the application.
-	 * Contructor
+	 * Create the frame.
 	 */
 	public ModificarUsuarioGUI() {
-		// TODO Auto-generated constructor stub
-		initialize();
-		controladorUsuario = new ControladorUsuario();
-	}
-	
-	/**
-	 * Inicializa los componentes de la aplicacion.
-	 */
-	
-	private void initialize() {
-		frmAccesoAlSistema = new JFrame();
-        frmAccesoAlSistema.setBounds(100, 100, 450, 480);
-		frmAccesoAlSistema.getContentPane().setBackground(new Color(0, 153, 255));
-		frmAccesoAlSistema.setForeground(new Color(30, 144, 255));
-		frmAccesoAlSistema.setTitle("Modificar Datos De Usuario");
-		frmAccesoAlSistema.setBackground(new Color(30, 144, 255));
 		
-		frmAccesoAlSistema.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAccesoAlSistema.getContentPane().setLayout(null);
-	
-                
-        JLabel Modifique = new JLabel("Modificar los datos del usuario:");
+		controladorUsuario = new ControladorUsuario();
+		
+		setTitle("Modificar Datos De Usuario");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 480);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 204, 51));
+		setForeground(new Color(30, 144, 255));
+		setBackground(new Color(0, 153, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel Modifique = new JLabel("Modificar los datos del usuario:");
 		Modifique.setBounds(101, 30, 300, 50);
         Modifique.setFont(new Font("Serif", Font.BOLD, 17));
                     
                 
-		frmAccesoAlSistema.getContentPane().add(Modifique);
+        contentPane.add(Modifique);
                
                 
 		//Campo texto del Usuario
@@ -96,26 +93,26 @@ public class ModificarUsuarioGUI {
 		campoUsuario.setForeground(new Color(0, 0, 0));
 		campoUsuario.setBackground(new Color(204, 255, 255));
 		campoUsuario.setBounds(193, 89, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoUsuario);
+		contentPane.add(campoUsuario);
 		campoUsuario.setColumns(10);
 		
         //Se establece la etiqueta Usuario
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblUsuario.setBounds(101, 92, 59, 14);
-		frmAccesoAlSistema.getContentPane().add(lblUsuario);
+		contentPane.add(lblUsuario);
                 
 		//Se establece la etiqueta contrasenna
 		JLabel lblContrasea = new JLabel("Contraseña:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblContrasea.setBounds(101, 123, 82, 14);
-		frmAccesoAlSistema.getContentPane().add(lblContrasea);
+		contentPane.add(lblContrasea);
 		
 		//Se establece el campo de texto Contrasenna
 		campoPassword = new JPasswordField();
 		campoPassword.setBackground(new Color(204, 255, 255));
 		campoPassword.setBounds(193, 120, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoPassword);
+		contentPane.add(campoPassword);
 		
                 
                  
@@ -123,14 +120,14 @@ public class ModificarUsuarioGUI {
 		JLabel lblnombres = new JLabel("Nombres:");
 		lblnombres.setBounds(101, 152, 72, 14);
 		lblnombres.setFont(new Font("Tahoma", Font.BOLD, 12));
-		frmAccesoAlSistema.getContentPane().add(lblnombres);
+		contentPane.add(lblnombres);
 		
         //Campo texto de nombres
 		campoNombres = new JTextField();
 		campoNombres.setForeground(new Color(0, 0, 0));
 		campoNombres.setBackground(new Color(204, 255, 255));
 		campoNombres.setBounds(193, 150, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoNombres);
+		contentPane.add(campoNombres);
 		campoUsuario.setColumns(10);
 		
                 
@@ -138,14 +135,14 @@ public class ModificarUsuarioGUI {
 		JLabel lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblApellidos.setBounds(101, 182, 72, 14);
-		frmAccesoAlSistema.getContentPane().add(lblApellidos);
+		contentPane.add(lblApellidos);
 		
         //Campo texto de nombres
 		campoApellidos = new JTextField();
 		campoApellidos.setForeground(new Color(0, 0, 0));
 		campoApellidos.setBackground(new Color(204, 255, 255));
 		campoApellidos.setBounds(193, 180, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoApellidos);
+		contentPane.add(campoApellidos);
 		campoApellidos.setColumns(10);
 		
 
@@ -154,54 +151,54 @@ public class ModificarUsuarioGUI {
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTipo.setBounds(101, 213, 72, 14);
-		frmAccesoAlSistema.getContentPane().add(lblTipo);
+		contentPane.add(lblTipo);
 
 		//comboBox tipo de usuario 
 		tipoUsuario = new JComboBox(opcionesTipoU);
 		tipoUsuario.setForeground(new Color(0, 0, 0));
 		tipoUsuario.setBackground(new Color(204, 255, 255));
 		tipoUsuario.setBounds(193, 210, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(tipoUsuario);
+		contentPane.add(tipoUsuario);
                 
         //Se establece el estado  de Usuario 
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblEstado.setBounds(101, 239, 72, 14);
-		frmAccesoAlSistema.getContentPane().add(lblEstado);
+		contentPane.add(lblEstado);
         
 		//comboBox estado de usuario 
 		tipoEstado = new JComboBox(opcionesEstado);
 		tipoEstado.setForeground(new Color(0, 0, 0));
 		tipoEstado.setBackground(new Color(204, 255, 255));
 		tipoEstado.setBounds(193, 237, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(tipoEstado);
+		contentPane.add(tipoEstado);
                 
         //Se establece la etiqueta  cedula
 		JLabel lblCedula = new JLabel("Cedula :");
 		lblCedula.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblCedula.setBounds(101, 267, 72, 14);
-		frmAccesoAlSistema.getContentPane().add(lblCedula);
+		contentPane.add(lblCedula);
 
 		//Campo texto de cedula
 		campoCedula = new JTextField();
 		campoCedula.setForeground(new Color(0, 0, 0));
 		campoCedula.setBackground(new Color(204, 255, 255));
 		campoCedula.setBounds(193, 265, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoCedula);
+		contentPane.add(campoCedula);
 		campoCedula.setColumns(10);
 		        
         //Se establece la etiqueta  Email
 		JLabel lblEmail = new JLabel("Email :");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblEmail.setBounds(101, 295, 72, 14);
-		frmAccesoAlSistema.getContentPane().add(lblEmail);
+		contentPane.add(lblEmail);
         
 		//Campo texto de nombres
 		campoEmail = new JTextField();
 		campoEmail.setForeground(new Color(0, 0, 0));
 		campoEmail.setBackground(new Color(204, 255, 255));
 		campoEmail.setBounds(193, 293, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoEmail);
+		contentPane.add(campoEmail);
 		campoEmail.setColumns(10);
 		       
 		//Se establece el boton Ingresar
@@ -218,7 +215,7 @@ public class ModificarUsuarioGUI {
 		
 		botonActualizar.setBackground(new Color(0, 0, 0));
 		botonActualizar.setBounds(111, 340, 97, 33);
-		frmAccesoAlSistema.getContentPane().add(botonActualizar);
+		contentPane.add(botonActualizar);
 		
 		//Se establece el boton Cancelar
 		botonCancelar = new JButton("Cancelar");
@@ -233,43 +230,42 @@ public class ModificarUsuarioGUI {
 		botonCancelar.setForeground(new Color(255, 255, 255));
 		botonCancelar.setBackground(new Color(0, 0, 0));
 		botonCancelar.setBounds(218, 340, 97, 33);
-		frmAccesoAlSistema.getContentPane().add(botonCancelar);
-                
-             
+		contentPane.add(botonCancelar);
+		
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
-	private void botonCancelarActionPerformed( ActionEvent evt ){
-		controladorUsuario.cerrarConexionBD();
-		System.out.println("Conexion cerrada...");
-		System.exit(0);
-	}
-	
-	//Metodo que se encarga del evento del boton Ingresar
-	private void botonActualizarActionPerformed (ActionEvent evt ){
-		String nick, contra, tipo;
-		
-		nick = campoUsuario.getText();
-		contra = String.valueOf(campoPassword.getPassword());
-		
-		Login l = null;
-		
-//		l = controladorLogin.consultarLogin(nick, contra);
-		if ( campoUsuario.getText().equals("") || (String.valueOf(campoPassword.getPassword())).equals("") ){
-			JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
-		} else if ( l.equals(null) ){
-			JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
-		} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
-			tipo = l.getTipo();
-			if ( tipo.equals("administrador") ){
-				
-			} else if ( tipo.equals("gerente") ){
-				
-			} else if (tipo.equals("operador")){
-				
-			}
+		private void botonCancelarActionPerformed( ActionEvent evt ){
+			controladorUsuario.cerrarConexionBD();
+			System.out.println("Conexion cerrada...");
+			System.exit(0);
 		}
 		
-	}
+		//Metodo que se encarga del evento del boton Ingresar
+		private void botonActualizarActionPerformed (ActionEvent evt ){
+			String nick, contra, tipo;
+			
+			nick = campoUsuario.getText();
+			contra = String.valueOf(campoPassword.getPassword());
+			
+			Login l = null;
+			
+//			l = controladorLogin.consultarLogin(nick, contra);
+			if ( campoUsuario.getText().equals("") || (String.valueOf(campoPassword.getPassword())).equals("") ){
+				JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
+			} else if ( l.equals(null) ){
+				JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
+			} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
+				tipo = l.getTipo();
+				if ( tipo.equals("administrador") ){
+					
+				} else if ( tipo.equals("gerente") ){
+					
+				} else if (tipo.equals("operador")){
+					
+				}
+			}
+			
+		}
 
 }
