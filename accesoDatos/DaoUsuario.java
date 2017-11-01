@@ -26,8 +26,8 @@ public class DaoUsuario {
 		
 		sql_guardar = "INSERT INTO usuario VALUES ('"+
 				u.getNombre() + "', '" + u.getApellido() +  "', '" +
-				u.getCedula() + "', '" + u.getNick() + "', '" + u.getContrasenna() + "', '" + u.getTelefono() + 
-				u.getTipo() + "', '" + u.getEstado() + "', '" + u.getEmail() + "')";
+				u.getCedula() + "', '" + u.getNick() + "', '" + u.getContrasenna() + "', '" + u.getTelefono() + "', '" +
+				u.getTipo() + "', '" + u.getEstado() + "', '" + u.getEmail() + "');";
 		
 		try {
 			Connection conn = fachada.getConnetion();
