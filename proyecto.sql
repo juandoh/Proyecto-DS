@@ -25,12 +25,13 @@ PRIMARY KEY (direccion, numero_sede));
 
 DROP TABLE if exists evento CASCADE;
 CREATE TABLE evento(
-nombre varchar(50) NOT NULL;
+nombre varchar(50) NOT NULL,
 fecha date NOT NULL,
 ciudad varchar(40) NOT NULL,
 costo integer NOT NULL,
 estado varchar(40) NOT NULL,
-PRIMARY KEY (nombre, fecha));
+PRIMARY KEY (nombre, fecha),
+UNIQUE (nombre));
 
 DROP TABLE if exists pre_inscripcion CASCADE;
 CREATE TABLE pre_inscripcion(
@@ -100,7 +101,7 @@ INSERT INTO sede VALUES ('music del paramo', 'calle 58 # 4-18', 09, 'Pasto');
 INSERT INTO evento VALUES ('mega concierto', '15-10-2017', 'Cali', 70000000, 'realizado');
 INSERT INTO evento VALUES ('filarmonica', '30-10-2017', 'Bogota', 30000000, 'en proceso');
 INSERT INTO evento VALUES ('orquesta', '04-07-2017', 'Manizales', 45000000, 'realizado');
-INSERT INTO evento VALUES ('intrumentos de viento', '07-11-2017', 50000000, 'en proceso');
+INSERT INTO evento VALUES ('intrumentos de viento', '07-11-2017', 'Pasto', 50000000, 'en proceso');
 
 /**Datos de pre-inscripcion*/
 INSERT INTO pre_inscripcion VALUES ('mega concierto', 'JULIAN BENITEZ', '31456984', '01-10-2017');
