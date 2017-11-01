@@ -23,8 +23,8 @@ public class DaoLogin {
 		Login l = new Login();
 		String sql_select;
 		
-		sql_select="SELECT nick, contrasenna, tipo FROM  " +
-				"usuario WHERE nick='" + nick +  "'" + " AND "+ "contrasenna = '" + contra + "'";
+		sql_select="SELECT nick, contrasenna, tipo FROM " +
+				"usuario WHERE nick='" + nick +  "'" + " AND "+ "contrasenna='" + contra + "'";
 		try{
 			Connection conn= fachada.getConnetion();
             System.out.println("consultando en la bd");
