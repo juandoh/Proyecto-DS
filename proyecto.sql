@@ -48,9 +48,20 @@ nombre_evento varchar(50) NOT NULL,
 nombre_participante varchar(50) NOT NULL,
 cedula varchar(30) NOT NULL,
 fecha date NOT NULL,
+telefono varchar(20) NOT NULL,
+email varchar(30) NOT NULL,
+PRIMARY KEY (nombre_evento, cedula, fecha),
+FOREIGN KEY (nombre_evento) REFERENCES evento (nombre));
+
+DROP TABLE if exists pago CASCADE;
+CREATE TABLE pago(
+nombre_evento varchar(50) NOT NULL,
+nombre_participante varchar(50) NOT NULL,
+cedula varchar(30) NOT NULL,
 forma_pago varchar(30) NOT NULL,
 valor integer NOT NULL,
-PRIMARY KEY (nombre_evento, cedula, fecha),
+fecha date NOT NULL,
+PRIMARY KEY (nombre_evento, cedula, fecha)
 FOREIGN KEY (nombre_evento) REFERENCES evento (nombre));
 
 DROP TABLE if exists diploma CASCADE;
@@ -79,13 +90,13 @@ set datestyle to 'European';
 -----------------DATOS DEL SISTEMA--------------------------
 
 /**Datos de administradores*/
-INSERT INTO usuario VALUES ('juan', 'ordonnez', '1144061858', 'juando', 'prueba123', '5512050', 'administrador', 'activo', 'juan@gmail.com');
+INSERT INTO usuario VALUES ('juan', 'ordonnez', '1144061858', 'juando', 'prueba123', '5512050', 'administrador', 'ACTIVO', 'juan@gmail.com');
 
 /**Datos de gerente*/
-INSERT INTO usuario VALUES ('jose', 'torres', '124547896', 'joseto', 'nuevo123', '5531417', 'gerente', 'activo', 'jose@gmail.com');
+INSERT INTO usuario VALUES ('jose', 'torres', '124547896', 'joseto', 'nuevo123', '5531417', 'GERENTE', 'ACTIVO', 'jose@gmail.com');
 
 /**Datos de operador*/
-INSERT INTO usuario VALUES ('ana', 'silva', '112365478', 'anasi', 'nueva123', '5540112', 'operador', 'activo', 'ana@gmail.com');
+INSERT INTO usuario VALUES ('ana', 'silva', '112365478', 'anasi', 'nueva123', '5540112', 'OPERADOR', 'ACTIVO', 'ana@gmail.com');
 
 /**Datos sede*/
 INSERT INTO sede VALUES ('music del sur', 'cra 80 # 15-21', 02, 'Cali');
