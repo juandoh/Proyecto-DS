@@ -185,24 +185,25 @@ public class LoginGUI {
 		if ( campoUsuario.getText().equals("") || (String.valueOf(campoPassword.getPassword())).equals("") ){
 			JOptionPane.showMessageDialog(null, "Por favor llene los campos", "Campos_Vacios", JOptionPane.WARNING_MESSAGE);
 		} else if ( l.equals(null) ){
-			JOptionPane.showMessageDialog(null, "Usuario o Contrase�a inconrrecta");
+			JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
 		} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
 			tipo = l.getTipo();
 			
-			if ( (tipo!=null) && tipo.equals("administrador") ){
+			
+			if ( tipo.equals("administrador") ){
 				PanelAdministradorGUI aplicacion1 = new PanelAdministradorGUI();
 				aplicacion1.setVisible(true);
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			} else if ( (tipo!=null) && tipo.equals("gerente") ){
-				//CreaUsuarioGUI aplicacion1 = new CreaUsuarioGUI;
-				//aplicacion1.setVisible(true);
-				//aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			} else if ((tipo!=null) && tipo.equals("operador")){
+			} else if ( tipo.equals("GERENTE") ){
+				PanelGerenteGUI aplicacion1 = new PanelGerenteGUI();
+				aplicacion1.setVisible(true);
+				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			} else if ( tipo.equals("OPERADOR")){
 				PanelOperadorGUI aplicacion1 = new PanelOperadorGUI();
 				aplicacion1.setVisible(true);
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			} else if ( (tipo==null) ){
-				JOptionPane.showMessageDialog(null, "Usuario o Contrase�a inconrrecta", "Datos_Invalidos", JOptionPane.ERROR_MESSAGE);
+			} else if ( tipo==null ){
+				JOptionPane.showMessageDialog(null, "Usuario o Contraseï¿½a inconrrecta", "Datos_Invalidos", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
