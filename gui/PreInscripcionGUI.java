@@ -19,6 +19,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class PreInscripcionGUI extends JFrame {
 
@@ -145,6 +147,27 @@ public class PreInscripcionGUI extends JFrame {
 		System.out.println("Conexion cerrada...");
 		System.exit(0);
 	}
+	
+	//Metodo que se encarga de validar si el parametro de entrada es un numero
+	public static boolean isNumeric(String str) {
+		
+        return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
+        
+    }
+    
+	//Metodo que se encarga de validar si el parametro de entrada sigue el formato de fecha
+	public static boolean isValidDate(String inDate) {
+		
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    dateFormat.setLenient(false);
+    
+    try {
+    	dateFormat.parse(inDate.trim());
+    	} catch (ParseException pe) {
+    		return false;
+    		}
+    return true;
+    }
 		
 	//Metodo que se encarga del evento del boton Ingresar
 	private void botonGuardarActionPerformed (ActionEvent evt ){
@@ -158,13 +181,21 @@ public class PreInscripcionGUI extends JFrame {
 			int numFilas = controladorPreInscripcion.insertarPreInscripcion(nombreEvento, nombreParticipante, cedula, fecha);
 				
 			if (nombreEvento.isEmpty() || nombreParticipante.isEmpty() || cedula.isEmpty() || fecha.isEmpty()){
-					JOptionPane.showMessageDialog(null, "Por favor recuerde llenar todos los campos");
-			} else if ( numFilas == 1 ){
+					JOptionPane.showMessageDialog(null, "Por favor recuerde llenar todos los campos", "Campos_Vacios", JOptionPane.WARNING_MESSAGE);
+			
+			} else  if ( isNumeric(cedula)== false){
+				JOptionPane.showMessageDialog(null, "Por favor ingrese un numero de cedula valido", "Dato_Invalido", JOptionPane.WARNING_MESSAGE);
+				
+			} else  if ( isValidDate(fecha)== false){
 					
-				JOptionPane.showMessageDialog(null, "La PreInscripcion se guardado exitosamente");
+				JOptionPane.showMessageDialog(null, "Por favor digite una fecha valida del tipo  DD-MM-YYYY", "Dato_Invalido", JOptionPane.WARNING_MESSAGE);
+					
+				} else if ( numFilas == 1 ){
+					
+				JOptionPane.showMessageDialog(null, "La PreInscripcion se ha guardado exitosamente", "Proceso_Exitoso", JOptionPane.PLAIN_MESSAGE);
 					
 			} else {
-					JOptionPane.showMessageDialog(null, "Ocurrio un problema al guardar la PreInscripcion en el Sistema");
+					JOptionPane.showMessageDialog(null, "Ocurrio un problema al guardar la PreInscripcion en el Sistema", "Error de Conexion", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 

@@ -3,7 +3,9 @@ package gui;
  * @author juan diego ordonnez
  */
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +16,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class PanelAdministradorGUI extends JFrame {
 
@@ -39,8 +42,9 @@ public class PanelAdministradorGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelAdministradorGUI() {
+		setResizable(false);
 		setTitle("Panel De  Usuario Administrador");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 51, 204));
@@ -55,6 +59,7 @@ public class PanelAdministradorGUI extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnCrearUsuario = new JButton("Crear usuario");
+		btnCrearUsuario.setMnemonic('C');
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				botonCrearUsuarioActionPerformed(evt);
@@ -66,6 +71,7 @@ public class PanelAdministradorGUI extends JFrame {
 		contentPane.add(btnCrearUsuario);
 		
 		JButton btnModificarUsuario = new JButton("Modificar usuario");
+		btnModificarUsuario.setMnemonic('M');
 		btnModificarUsuario.setBackground(new Color(0, 0, 0));
 		btnModificarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -77,29 +83,61 @@ public class PanelAdministradorGUI extends JFrame {
 		contentPane.add(btnModificarUsuario);
 		
 		JButton btnVerUsuario = new JButton("Ver usuarios");
+		btnVerUsuario.setMnemonic('V');
 		btnVerUsuario.setForeground(new Color(255, 255, 255));
 		btnVerUsuario.setBackground(new Color(0, 0, 0));
 		btnVerUsuario.setBounds(87, 165, 144, 23);
 		contentPane.add(btnVerUsuario);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				dispose();
+			}
+		});
+		btnSalir.setMnemonic('S');
 		btnSalir.setForeground(new Color(255, 255, 255));
 		btnSalir.setBackground(new Color(0, 0, 0));
 		btnSalir.setBounds(115, 217, 96, 23);
 		contentPane.add(btnSalir);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		ImageIcon aux = new ImageIcon(getClass().getResource("/imagen/41f9B0mX7fL.png"));
+		ImageIcon temp = new ImageIcon(aux.getImage().getScaledInstance(140, -1, Image.SCALE_DEFAULT));
+		lblNewLabel_1.setIcon(temp);
+		lblNewLabel_1.setSize(new Dimension(140, 150));
+		lblNewLabel_1.setPreferredSize(new Dimension(140, 140));
+		lblNewLabel_1.setBounds(261, 65, 140, 140);
+		contentPane.add(lblNewLabel_1);
+	}
+	
+	//Metodo para conseguir el JFrame de la Ventana Principal
+	private JFrame getFrame(){
+		return this;
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
 	private void botonCrearUsuarioActionPerformed( ActionEvent evt ){
-		CrearUsuarioGUI aplicacion1 = new CrearUsuarioGUI();
+		CrearUsuarioGUI aplicacion1 = new CrearUsuarioGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
+		
 		aplicacion1.setVisible(true);
-		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
 	private void botonModificarUsuarioActionPerformed( ActionEvent evt ){
-		ModificarUsuarioGUI aplicacion1 = new ModificarUsuarioGUI();
+		ModificarUsuarioGUI aplicacion1 = new ModificarUsuarioGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
 		aplicacion1.setVisible(true);
-		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
 	}
 }

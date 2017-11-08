@@ -3,7 +3,9 @@ package gui;
  *@author juan diego ordonnez
  */
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -20,9 +22,23 @@ import controlador.ControladorLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
 
 import logica.Login;
 import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
+import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
+import javax.swing.DropMode;
+import java.awt.Toolkit;
+import java.awt.Frame;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.SystemColor;
 
 public class LoginGUI {
 
@@ -33,6 +49,7 @@ public class LoginGUI {
 	private JButton botonCancelar;
 	
 	ControladorLogin controladorLogin;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -64,6 +81,8 @@ public class LoginGUI {
 	 */
 	private void initialize() {
 		frmAccesoAlSistema = new JFrame();
+		frmAccesoAlSistema.setResizable(false);
+		frmAccesoAlSistema.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/imagen/ruedas-dentadas-icono-plana.png")));
 		frmAccesoAlSistema.getContentPane().setBackground(new Color(0, 153, 255));
 		frmAccesoAlSistema.setForeground(new Color(30, 144, 255));
 		frmAccesoAlSistema.setTitle("ACCESO AL SISTEMA");
@@ -73,29 +92,37 @@ public class LoginGUI {
 		frmAccesoAlSistema.getContentPane().setLayout(null);
 		
 		//Campo texto del Usuario
-		campoUsuario = new JTextField();
-		campoUsuario.setForeground(new Color(0, 0, 0));
-		campoUsuario.setBackground(new Color(204, 255, 255));
-		campoUsuario.setBounds(180, 90, 122, 20);
+		campoUsuario = new JTextField("");
+		campoUsuario.setSelectionColor(new Color(124, 252, 0));
+		campoUsuario.setCaretColor(new Color(255, 255, 0));
+		campoUsuario.setFont(new Font("Tahoma", Font.BOLD, 11));
+		//PromptSupport.setPrompt();
+		campoUsuario.setForeground(Color.WHITE);
+		campoUsuario.setBackground(new Color(0, 0, 0));
+		campoUsuario.setBounds(179, 108, 122, 20);
 		frmAccesoAlSistema.getContentPane().add(campoUsuario);
 		campoUsuario.setColumns(10);
 		
 		//Se establece la etiqueta Usuario
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setBounds(87, 92, 59, 14);
+		lblUsuario.setBounds(86, 110, 59, 14);
 		frmAccesoAlSistema.getContentPane().add(lblUsuario);
 		
 		//Se establece la etiqueta contrasenna
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblContrasea.setBounds(87, 122, 83, 14);
+		lblContrasea.setBounds(86, 140, 83, 14);
 		frmAccesoAlSistema.getContentPane().add(lblContrasea);
 		
 		//Se establece el campo de texto Contrasenna
 		campoPassword = new JPasswordField();
-		campoPassword.setBackground(new Color(204, 255, 255));
-		campoPassword.setBounds(180, 120, 122, 20);
+		campoPassword.setSelectionColor(new Color(124, 252, 0));
+		campoPassword.setCaretColor(new Color(255, 255, 0));
+		campoPassword.setDisabledTextColor(new Color(128, 128, 128));
+		campoPassword.setForeground(Color.WHITE);
+		campoPassword.setBackground(new Color(0, 0, 0));
+		campoPassword.setBounds(179, 138, 122, 20);
 		frmAccesoAlSistema.getContentPane().add(campoPassword);
 		
 		//Se establece el boton Ingresar
@@ -110,7 +137,7 @@ public class LoginGUI {
 			}
 		});
 		botonIngresar.setBackground(new Color(0, 0, 0));
-		botonIngresar.setBounds(98, 176, 97, 33);
+		botonIngresar.setBounds(97, 190, 97, 33);
 		frmAccesoAlSistema.getContentPane().add(botonIngresar);
 		
 		//Se establece el boton Cancelar
@@ -124,8 +151,18 @@ public class LoginGUI {
 		botonCancelar.setMnemonic('C');
 		botonCancelar.setForeground(new Color(255, 255, 255));
 		botonCancelar.setBackground(new Color(0, 0, 0));
-		botonCancelar.setBounds(205, 176, 97, 33);
+		botonCancelar.setBounds(204, 190, 97, 33);
 		frmAccesoAlSistema.getContentPane().add(botonCancelar);
+		
+		lblNewLabel = new JLabel("New label");
+		ImageIcon aux = new ImageIcon(getClass().getResource("/imagen/admin-button-icon-md.png"));
+		//ImageIcon aux = new ImageIcon(getClass().getResource("/imagen/images.jpg"));
+		ImageIcon temp = new ImageIcon(aux.getImage().getScaledInstance(100, -1, Image.SCALE_DEFAULT));
+		lblNewLabel.setIcon(temp);
+		lblNewLabel.setBounds(155, 5, 170, 134);
+		lblNewLabel.setSize(new Dimension(100, 100));
+		lblNewLabel.setPreferredSize(new Dimension(100, 100));
+		frmAccesoAlSistema.getContentPane().add(lblNewLabel);
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
@@ -146,7 +183,7 @@ public class LoginGUI {
 		
 		l = controladorLogin.consultarLogin(nick, contra);
 		if ( campoUsuario.getText().equals("") || (String.valueOf(campoPassword.getPassword())).equals("") ){
-			JOptionPane.showMessageDialog(null, "Por favor llene los campos");
+			JOptionPane.showMessageDialog(null, "Por favor llene los campos", "Campos_Vacios", JOptionPane.WARNING_MESSAGE);
 		} else if ( l.equals(null) ){
 			JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
 		} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
@@ -165,10 +202,9 @@ public class LoginGUI {
 				aplicacion1.setVisible(true);
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			} else if ( (tipo==null) ){
-				JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
+				JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta", "Datos_Invalidos", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
 	}
-
 }
