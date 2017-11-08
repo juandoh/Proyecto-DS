@@ -1,32 +1,31 @@
 package accesoDatos;
 /**
  * 
- * @author Daniel Calero
+ * @author juan diego ordonez
  *
  */
 
 import java.sql.*;
 
-import logica.preInscripcion;
+import logica.Pago;
 
-public class DaoPreInscripcion {
+public class DaoPago {
 	
 	FachadaBD fachada;
 
-	public DaoPreInscripcion() {
+	public DaoPago() {
 		// TODO Auto-generated constructor stub
 		fachada = new FachadaBD();
 	}
 	
-	//Metodo para guardar la preInscripcion en la base de datos
-	public int guardarPreInscripcion( preInscripcion p ){
+	//Metodo para guardar el Pago en la base de datos
+	public int guardarPago( Pago p ){
 		String sql_guardar;
         int numFilas=0;
         
-        sql_guardar="INSERT INTO pre_inscripcion VALUES ('" +
+        sql_guardar="INSERT INTO pago VALUES ('" +
                 p.getNombreEvento() + "', '" + p.getNombreParticipante() + "', '" + 
-        		p.getCedula() + "', '" + p.getfecha() + "')";
-        
+        		p.getCedula() + "', '" + p.getFormaPago() + "', '" + p.getValor() + "', '" + p.getFecha() + "')";
         try{
             Connection conn= fachada.getConnetion();
             Statement sentencia = conn.createStatement();
@@ -43,11 +42,12 @@ public class DaoPreInscripcion {
             System.out.println(e);
         }
         return -1;
+		
 	}//Fin del metodo guardar
 	
 	//Metodo para cerrar la conexion a la base de datos
-	public void cerrarConexionBD(){
-        fachada.closeConection(fachada.getConnetion());
-    }
+		public void cerrarConexionBD(){
+	        fachada.closeConection(fachada.getConnetion());
+	    }
 
 }

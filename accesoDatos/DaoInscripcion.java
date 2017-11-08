@@ -1,10 +1,12 @@
 package accesoDatos;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+/**
+ * 
+ * @author Davis Mera
+ *
+ */
 
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 import logica.Inscripcion;
@@ -12,10 +14,11 @@ import logica.Usuario;
 import logica.preInscripcion;
 
 public class DaoInscripcion {
-
-	FachadaBD fachada;
 	
+	FachadaBD fachada;
+
 	public DaoInscripcion() {
+		// TODO Auto-generated constructor stub
 		fachada = new FachadaBD();
 	}
 	
@@ -45,7 +48,6 @@ public class DaoInscripcion {
 		}
 		return -1;
 	}
-	
 	
 	public preInscripcion consultarPreinscripcion(String cedula){
 		preInscripcion pre = new preInscripcion();
@@ -103,4 +105,5 @@ public class DaoInscripcion {
 	public void cerrarConexionBD(){
         fachada.closeConection(fachada.getConnetion());
     }
+
 }

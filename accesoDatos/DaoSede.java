@@ -1,4 +1,9 @@
 package accesoDatos;
+/**
+ * 
+ * @author juanvex
+ *
+ */
 
 public class DaoSede {
 
