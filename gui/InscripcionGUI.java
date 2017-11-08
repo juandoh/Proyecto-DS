@@ -226,7 +226,7 @@ public class InscripcionGUI extends JFrame {
 		preInscripcion pre;
 		
 		pre = controladorInscripcion.consultarPreinscripcion(cedula);
-		if ( pre.equals(null) ) {
+		if ( pre.getCedula() == null ) {
 			JOptionPane.showMessageDialog(null, "La pre-inscripcion no existe.", "No Encontrado", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			campoEvento.setText(pre.getNombreEvento());
@@ -259,7 +259,7 @@ public class InscripcionGUI extends JFrame {
 		{
 			JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
 		} else if (campoParticipante.getText().equals("") || campoEvento.getText().equals("") || campoFechaPre.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "La Contraseña no coincide con la Confirmación, digite de nuevo", "Contraseña Invalida", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "La ContraseÃ±a no coincide con la ConfirmaciÃ³n, digite de nuevo", "ContraseÃ±a Invalida", JOptionPane.ERROR_MESSAGE);
 		} else if (controladorInscripcion.comprobarNoInscrito(cedula) == true) {
 			JOptionPane.showMessageDialog(null, "Ya se ha realizado una inscripcion con el numero de cedula indicado. No se puede realizar una inscripcion otra vez.", "Inscripcion Existente", JOptionPane.ERROR_MESSAGE);
 		} else {
