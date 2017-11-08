@@ -61,7 +61,7 @@ cedula varchar(30) NOT NULL,
 forma_pago varchar(30) NOT NULL,
 valor integer NOT NULL,
 fecha date NOT NULL,
-PRIMARY KEY (nombre_evento, cedula, fecha)
+PRIMARY KEY (nombre_evento, cedula, fecha),
 FOREIGN KEY (nombre_evento) REFERENCES evento (nombre));
 
 DROP TABLE if exists diploma CASCADE;
