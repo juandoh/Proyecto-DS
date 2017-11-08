@@ -31,7 +31,7 @@ public class ControladorPreInscripcion {
 		//Se llama al dao para guardar
         System.out.println("Se va a insertar una preInscripcion");
         
-        int result =daoPreInscripcion.guardarPreInscripcion(p);
+        int result = daoPreInscripcion.guardarPreInscripcion(p);
 
         System.out.println("Se inserto una nueva preInscripcion");
         
