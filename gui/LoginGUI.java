@@ -3,16 +3,15 @@ package gui;
  *@author juan diego ordonnez
  */
 
+import javax.swing.border.EmptyBorder;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JFrame;
 import java.awt.Color;
-import java.awt.Window.Type;
-
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -22,27 +21,19 @@ import controlador.ControladorLogin;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusListener;
-
 import logica.Login;
 import java.awt.Font;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-import javax.swing.JEditorPane;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
 import java.awt.Toolkit;
-import java.awt.Frame;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.SystemColor;
 
-public class LoginGUI {
+public class LoginGUI extends JFrame {
 
-	private JFrame frmAccesoAlSistema;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	private JTextField campoUsuario;
 	private JPasswordField campoPassword;
 	private JButton botonIngresar;
@@ -58,8 +49,8 @@ public class LoginGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginGUI window = new LoginGUI();
-					window.frmAccesoAlSistema.setVisible(true);
+					LoginGUI frame = new LoginGUI();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,28 +59,24 @@ public class LoginGUI {
 	}
 
 	/**
-	 * Create the application.
-	 * Contructor
+	 * Create the frame.
+	 * Constructor
 	 */
 	public LoginGUI() {
-		initialize();
+		
 		controladorLogin = new ControladorLogin();
-	}
-
-	/**
-	 * Inicializa los componentes de la aplicacion.
-	 */
-	private void initialize() {
-		frmAccesoAlSistema = new JFrame();
-		frmAccesoAlSistema.setResizable(false);
-		frmAccesoAlSistema.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/imagen/ruedas-dentadas-icono-plana.png")));
-		frmAccesoAlSistema.getContentPane().setBackground(new Color(0, 153, 255));
-		frmAccesoAlSistema.setForeground(new Color(30, 144, 255));
-		frmAccesoAlSistema.setTitle("ACCESO AL SISTEMA");
-		frmAccesoAlSistema.setBackground(new Color(30, 144, 255));
-		frmAccesoAlSistema.setBounds(100, 100, 407, 283);
-		frmAccesoAlSistema.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAccesoAlSistema.getContentPane().setLayout(null);
+		
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/imagen/ruedas-dentadas-icono-plana.png")));
+		setTitle("ACCESO AL SISTEMA");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 407, 283);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 255));
+		contentPane.setForeground(new Color(30, 144, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		//Campo texto del Usuario
 		campoUsuario = new JTextField("");
@@ -100,21 +87,21 @@ public class LoginGUI {
 		campoUsuario.setForeground(Color.WHITE);
 		campoUsuario.setBackground(new Color(0, 0, 0));
 		campoUsuario.setBounds(179, 108, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoUsuario);
+		contentPane.add(campoUsuario);
 		campoUsuario.setColumns(10);
-		
+				
 		//Se establece la etiqueta Usuario
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setBounds(86, 110, 59, 14);
-		frmAccesoAlSistema.getContentPane().add(lblUsuario);
-		
+		lblUsuario.setBounds(74, 111, 83, 14);
+		contentPane.add(lblUsuario);
+				
 		//Se establece la etiqueta contrasenna
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblContrasea.setBounds(86, 140, 83, 14);
-		frmAccesoAlSistema.getContentPane().add(lblContrasea);
-		
+		lblContrasea.setBounds(74, 141, 95, 14);
+		contentPane.add(lblContrasea);
+				
 		//Se establece el campo de texto Contrasenna
 		campoPassword = new JPasswordField();
 		campoPassword.setSelectionColor(new Color(124, 252, 0));
@@ -123,8 +110,8 @@ public class LoginGUI {
 		campoPassword.setForeground(Color.WHITE);
 		campoPassword.setBackground(new Color(0, 0, 0));
 		campoPassword.setBounds(179, 138, 122, 20);
-		frmAccesoAlSistema.getContentPane().add(campoPassword);
-		
+		contentPane.add(campoPassword);
+				
 		//Se establece el boton Ingresar
 		botonIngresar = new JButton("Ingresar");
 		botonIngresar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -138,8 +125,8 @@ public class LoginGUI {
 		});
 		botonIngresar.setBackground(new Color(0, 0, 0));
 		botonIngresar.setBounds(97, 190, 97, 33);
-		frmAccesoAlSistema.getContentPane().add(botonIngresar);
-		
+		contentPane.add(botonIngresar);
+				
 		//Se establece el boton Cancelar
 		botonCancelar = new JButton("Cancelar");
 		botonCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -152,8 +139,8 @@ public class LoginGUI {
 		botonCancelar.setForeground(new Color(255, 255, 255));
 		botonCancelar.setBackground(new Color(0, 0, 0));
 		botonCancelar.setBounds(204, 190, 97, 33);
-		frmAccesoAlSistema.getContentPane().add(botonCancelar);
-		
+		contentPane.add(botonCancelar);
+				
 		lblNewLabel = new JLabel("New label");
 		ImageIcon aux = new ImageIcon(getClass().getResource("/imagen/admin-button-icon-md.png"));
 		//ImageIcon aux = new ImageIcon(getClass().getResource("/imagen/images.jpg"));
@@ -162,13 +149,19 @@ public class LoginGUI {
 		lblNewLabel.setBounds(155, 5, 170, 134);
 		lblNewLabel.setSize(new Dimension(100, 100));
 		lblNewLabel.setPreferredSize(new Dimension(100, 100));
-		frmAccesoAlSistema.getContentPane().add(lblNewLabel);
+		contentPane.add(lblNewLabel);
+	}
+	
+	//Metodo para conseguir el JFrame de la Ventana Principal
+	private JFrame getFrame(){
+		return this;
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
 	private void botonCancelarActionPerformed( ActionEvent evt ){
 		controladorLogin.cerrarConexionBD();
 		System.out.println("Conexion cerrada...");
+		//dispose();
 		System.exit(0);
 	}
 	
@@ -185,27 +178,59 @@ public class LoginGUI {
 		if ( campoUsuario.getText().equals("") || (String.valueOf(campoPassword.getPassword())).equals("") ){
 			JOptionPane.showMessageDialog(null, "Por favor llene los campos", "Campos_Vacios", JOptionPane.WARNING_MESSAGE);
 		} else if ( l.equals(null) ){
-			JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
+			JOptionPane.showMessageDialog(null, "Usuario o Contrase�a inconrrecta");
 		} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
 			tipo = l.getTipo();
 			
-			
-			if ( tipo.equals("administrador") ){
+			if ( (tipo!=null) && tipo.equals("administrador") ){
+				/*PanelAdministradorGUI aplicacion1 = new PanelAdministradorGUI(){
+					public void dispose(){
+						getFrame().setVisible(true);
+						super.dispose();
+					}
+				};
+				aplicacion1.setVisible(true);
+				dispose();*/
+				
 				PanelAdministradorGUI aplicacion1 = new PanelAdministradorGUI();
 				aplicacion1.setVisible(true);
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			} else if ( tipo.equals("GERENTE") ){
+				dispose();
+				
+			} else if ( (tipo!=null) && tipo.equals("gerente") ){
+				/*PanelGerenteGUI aplicacion1 = new PanelGerenteGUI(){
+					public void dispose(){
+						getFrame().setVisible(true);
+						super.dispose();
+					}
+				};
+				aplicacion1.setVisible(true);
+				dispose();*/
+				
 				PanelGerenteGUI aplicacion1 = new PanelGerenteGUI();
 				aplicacion1.setVisible(true);
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			} else if ( tipo.equals("OPERADOR")){
+				dispose();
+				
+			} else if ((tipo!=null) && tipo.equals("operador")){
+				/*PanelOperadorGUI aplicacion1 = new PanelOperadorGUI(){
+					public void dispose(){
+						getFrame().setVisible(true);
+						super.dispose();
+					}
+				};
+				aplicacion1.setVisible(true);
+				dispose();*/
+				
 				PanelOperadorGUI aplicacion1 = new PanelOperadorGUI();
 				aplicacion1.setVisible(true);
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			} else if ( tipo==null ){
-				JOptionPane.showMessageDialog(null, "Usuario o Contraseï¿½a inconrrecta", "Datos_Invalidos", JOptionPane.ERROR_MESSAGE);
+				dispose();
+				
+			} else if ( (tipo==null) ){
+				JOptionPane.showMessageDialog(null, "Usuario o Contrase�a inconrrecta", "Datos_Invalidos", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		
 	}
+
 }

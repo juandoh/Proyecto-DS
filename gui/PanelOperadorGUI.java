@@ -77,7 +77,7 @@ public class PanelOperadorGUI extends JFrame {
 		JButton btnInscripcion = new JButton("Inscripci\u00F3n");
 		btnInscripcion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+				botonInscripcionActionPerformed(evt);
 			}
 		});
 		btnInscripcion.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -90,7 +90,7 @@ public class PanelOperadorGUI extends JFrame {
 		JButton btnRegistrarPago = new JButton("Registrar Pagos");
 		btnRegistrarPago.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				botonRegistrarPago(evt);
+				botonRegistrarPagoActionPerformed(evt);
 			}
 		});
 		btnRegistrarPago.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -103,7 +103,7 @@ public class PanelOperadorGUI extends JFrame {
 		JButton btnGenerarEscarapelas = new JButton("Generar Escarapelas");
 		btnGenerarEscarapelas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+				botonGenerarEscarapelaActionPerformed(evt);
 			}
 		});
 		btnGenerarEscarapelas.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -163,26 +163,68 @@ public class PanelOperadorGUI extends JFrame {
 		contentPane.add(lblNewLabel);
 	}
 	
-	//Metodo que se encarga del evento del boton Preinscripcion
+	//Metodo para conseguir el JFrame de la Ventana Principal
+	private JFrame getFrame(){
+		return this;
+	}
+	
+	//Metodo que se encarga del evento del boton Inscripcion
 	private void botonPreInscripcionActionPerformed( ActionEvent evt ){
-		PreInscripcionGUI aplicacion1 = new PreInscripcionGUI();
+		PreInscripcionGUI aplicacion1 = new PreInscripcionGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
 		aplicacion1.setVisible(true);
 		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
+	}
+	
+	//Metodo que se encarga del evento del boton Preinscripcion
+	private void botonInscripcionActionPerformed( ActionEvent evt ){
+		InscripcionGUI aplicacion1 = new InscripcionGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
+		aplicacion1.setVisible(true);
+		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
+	}
+	
+	//Metodo que se encarga del evento del boton Generar Escarapela
+	private void botonGenerarEscarapelaActionPerformed( ActionEvent evt){
+		GenerarEscarapelaGUI aplicacion1 = new GenerarEscarapelaGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
+		aplicacion1.setVisible(true);
+		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
 	}
 	
 	//Metodo que se encarga del evento del boton Registrar Pago
-	private void botonRegistrarPago( ActionEvent evt ){
-		RegistrarPagoGUI aplicacion1 = new RegistrarPagoGUI();
+	private void botonRegistrarPagoActionPerformed( ActionEvent evt ){
+		RegistrarPagoGUI aplicacion1 = new RegistrarPagoGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
 		aplicacion1.setVisible(true);
 		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
 	}
 	
 	
 	//Metodo que se encarga del evento del boton Salir
 	private void botonSalirActionPerformed( ActionEvent evt ){
-		//controladorOperador.cerrarConexionBD();
 		System.out.println("Conexion cerrada...");
-		System.exit(0);
+		dispose();
 		
 	}
 }

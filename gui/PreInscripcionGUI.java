@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.SwingConstants;
 
 public class PreInscripcionGUI extends JFrame {
 
@@ -62,7 +63,7 @@ public class PreInscripcionGUI extends JFrame {
 		controladorPreInscripcion = new ControladorPreInscripcion();
 		
 		setTitle("Realizar Preinscripcion");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 153, 255));
@@ -139,13 +140,19 @@ public class PreInscripcionGUI extends JFrame {
 		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.setBounds(220, 170, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblPreinscripcion = new JLabel("PreInscripcion");
+		lblPreinscripcion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPreinscripcion.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblPreinscripcion.setBounds(108, 11, 191, 35);
+		contentPane.add(lblPreinscripcion);
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
 	private void botonCancelarActionPerformed( ActionEvent evt ){
 		controladorPreInscripcion.cerrarConexionBD();
 		System.out.println("Conexion cerrada...");
-		System.exit(0);
+		dispose();
 	}
 	
 	//Metodo que se encarga de validar si el parametro de entrada es un numero
@@ -198,5 +205,4 @@ public class PreInscripcionGUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "Ocurrio un problema al guardar la PreInscripcion en el Sistema", "Error de Conexion", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-
 }

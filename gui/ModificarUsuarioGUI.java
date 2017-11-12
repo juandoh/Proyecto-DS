@@ -351,7 +351,7 @@ public class ModificarUsuarioGUI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos", "Campos Vacios", JOptionPane.WARNING_MESSAGE);
 				} else if ( numFilas == 1 ){
 					JOptionPane.showMessageDialog(null, "El Usuario se ha modificado!", "Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-					} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
+					} else {
 						JOptionPane.showMessageDialog(null, "Ocurrio un problema al modificar el Usuario en el Sistema", "Fallo en la Modificación", JOptionPane.ERROR_MESSAGE);
 					}
 			}

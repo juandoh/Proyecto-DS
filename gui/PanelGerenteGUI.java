@@ -68,7 +68,7 @@ public class PanelGerenteGUI extends JFrame {
 				}
 			};
 			aplicacion1.setVisible(true);
-			dispose();
+			aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 		});
 		btnRegistrarSede.setBackground(new Color(0, 0, 0));
