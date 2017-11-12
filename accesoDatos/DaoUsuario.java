@@ -112,9 +112,41 @@ public class DaoUsuario {
 	}
 	
 	//Metodo que se encarga de Listar los Usuarios que estan registrados en el sistema
-	//public Usuario listarUsuario(){
+	public String listarUsuario(){
+		Usuario u = new Usuario();
+		String sql_select;
 		
-	//}
+		String listaEmail="";
+		String listaNick="";
+		String listaFinal="";
+		String listaTipo="";
+		String listaEstado="";
+		
+		sql_select="SELECT nombre, apellido, nick, telefono, tipo, estado, email FROM  usuario ";
+		
+		try{
+			Connection conn= fachada.getConnetion();
+            System.out.println("consultando en la bd");
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            
+            while(tabla.next()){
+            	listaNick= tabla.getString("nick");
+                listaEmail= tabla.getString( "email");
+                listaTipo= tabla.getString( "tipo");
+           	 	listaEstado = tabla.getString("estado");
+           	 	
+           	 listaFinal= " " + listaFinal +"<TR>" + "<TD>" +listaNick+  "</TD>"+  "<TD>" +listaTipo+  "</TD>" + "<TD>" + listaEstado  +  "</TD>" +   "   "+  "<TD>" + listaEmail +  "</TD>"+ "</TR>"+ "<br>";
+            }
+            return listaFinal; 
+		} catch(SQLException e){ 
+			System.out.println(e); 
+			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");}
+		
+		catch(Exception e){ System.out.println(e); }
+        return null;
+	}
+		
 	
 	//Metodo para cerrar la conexion a la base de datos
 	public void cerrarConexionBD(){
