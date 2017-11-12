@@ -72,6 +72,18 @@ public class ControladorUsuario {
 		
 	}//Fin del metodo consultar
 	
+	//Metodo que se encarga de Listar todos los usuarios del sistema
+	public String ListarUsuario(){
+		String resultado="";
+		
+		System.out.println("Se va a listar los Usuario");
+		
+		//Se llama al dao para listar
+		resultado = daoUsuario.listarUsuario();
+		
+		return resultado;
+	}
+	
 	//Metodo para cerrar la conexion con la base de datos
 	public void cerrarConexionBD(){
         daoUsuario.cerrarConexionBD();
