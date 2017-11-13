@@ -27,13 +27,19 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.Image;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
+//import java.sql.Date;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 
@@ -52,6 +58,8 @@ public class InscripcionGUI extends JFrame {
 	private JTextField campoTelefono;
 	private JTextField campoEmail;
 	private JDateChooser campoFechaInsc;
+	private JComboBox campoEventos;
+	String[] listaEventos;
 
 	/**
 	 * Launch the application.
@@ -99,11 +107,11 @@ public class InscripcionGUI extends JFrame {
 		contentPane.add(lblNonbreEvento);
 		
 		//Se establece el JTextField campoEvento
-		campoEvento = new JTextField();
+		/*campoEvento = new JTextField();
 		campoEvento.setBounds(186, 53, 161, 20);
 		contentPane.add(campoEvento);
 		campoEvento.setColumns(10);
-		campoEvento.setEnabled(false);
+		campoEvento.setEnabled(false);*/
 		
 		//Se establece la JLabel lblNombreParticipante
 		JLabel lblNombreParticipante = new JLabel("Nombre Participante:");
@@ -174,6 +182,11 @@ public class InscripcionGUI extends JFrame {
 		contentPane.add(campoEmail);
 		campoEmail.setColumns(10);
 		
+		campoFechaInsc = new JDateChooser();
+		campoFechaInsc.setDateFormatString("d-MM-yyyy");
+		campoFechaInsc.setBounds(186, 166, 161, 20);
+		contentPane.add(campoFechaInsc);
+		
 		//-----Boton consultar-----
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
@@ -227,26 +240,36 @@ public class InscripcionGUI extends JFrame {
 		btnCancelar.setBounds(239, 270, 80, 80);
 		contentPane.add(btnCancelar);
 		
-		campoFechaInsc = new JDateChooser();
-		campoFechaInsc.setBounds(186, 166, 161, 20);
-		contentPane.add(campoFechaInsc);
+		//comboBox tipo de los eventos 
+		campoEventos = new JComboBox();
+		campoEventos.setForeground(new Color(0, 0, 0));
+		campoEventos.setBackground(new Color(204, 255, 255));
+		campoEventos.setBounds(186, 53, 161, 20);
+		contentPane.add(campoEventos);
+		
 	}
 	
 	//Metodo que se encarga del evento del boton Consultar
 	private void botonConsultarActionPerformed( ActionEvent evt ){
 		String cedula;
+		String[] lista_eventos;
 		cedula = campoCedula.getText();
 		
-		preInscripcion pre;
+		preInscripcion pre, eventos;
 		
 		pre = controladorInscripcion.consultarPreinscripcion(cedula);
 		if ( pre.getCedula() == null ) {
 			JOptionPane.showMessageDialog(null, "La pre-inscripcion no existe.", "No Encontrado", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			campoEvento.setText(pre.getNombreEvento());
+			//campoEvento.setText(pre.getNombreEvento());
 			campoParticipante.setText(pre.getNombreParticipante());
 			campoFechaPre.setText(pre.getfecha());
 		}
+		
+		lista_eventos = controladorInscripcion.consultarEventosPreinscritos(cedula);
+		this.listaEventos = lista_eventos;
+		DefaultComboBoxModel model = new DefaultComboBoxModel( lista_eventos );
+		campoEventos.setModel( model );
 	}
 	
 	//Metodo que se encarga del evento del boton Cancelar
@@ -254,29 +277,42 @@ public class InscripcionGUI extends JFrame {
 		controladorInscripcion.cerrarConexionBD();
 		System.out.println("Conexion cerrada...");
 		dispose();
+		System.out.println("");
 	}
 	
 	//Metodo que se encarga del evento del boton Ingresar
 	private void botonGuardarActionPerformed (ActionEvent evt ){
 		String nombre_evento, nombre_participante, cedula, fecha, telefono, email;
+		String fecha_resultado;
 		
-		nombre_evento = campoEvento.getText();
+		nombre_evento = (String) campoEventos.getSelectedItem();
 		nombre_participante = campoParticipante.getText();
 		cedula = campoCedula.getText();
-		fecha = String.valueOf(( campoFechaInsc).getToolkit());
+		
+		String formato = campoFechaInsc.getDateFormatString();
+		Date date = (Date) campoFechaInsc.getDate();
+		SimpleDateFormat sdf = new SimpleDateFormat(formato);
+		if(campoFechaInsc.getDate() != null){
+			fecha = String.valueOf(sdf.format(date));
+		}else{fecha="";}
+		
+		
 		telefono = campoTelefono.getText();
 		email = campoEmail.getText();
 		
-		if ( campoFechaInsc.getToolkit().equals("") || campoTelefono.getText().equals("") || campoEmail.getText().equals("") )
+		if ( fecha.equals("") || campoTelefono.getText().equals("") || campoEmail.getText().equals("") )
 		{
 			JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
-		} else if (campoParticipante.getText().equals("") || campoEvento.getText().equals("") || campoFechaPre.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "La Contraseña no coincide con la Confirmación, digite de nuevo", "Contraseña Invalida", JOptionPane.ERROR_MESSAGE);
-		} else if (controladorInscripcion.comprobarNoInscrito(cedula) == true) {
+		} else if (campoParticipante.getText().equals("") || campoFechaPre.getText().equals("")){
+			JOptionPane.showMessageDialog(null, "La Contraseï¿½a no coincide con la Confirmaciï¿½n, digite de nuevo", "Contraseï¿½a Invalida", JOptionPane.ERROR_MESSAGE);
+		} else if (controladorInscripcion.comprobarNoInscrito(cedula, nombre_evento) == true) {
 			JOptionPane.showMessageDialog(null, "Ya se ha realizado una inscripcion con el numero de cedula indicado. No se puede realizar una inscripcion otra vez.", "Inscripcion Existente", JOptionPane.ERROR_MESSAGE);
 		} else {
 			controladorInscripcion.insertarInscripcion(nombre_evento, nombre_participante, cedula, fecha, telefono, email);
-			JOptionPane.showMessageDialog(null, "Inscripcion realizada para: " + nombre_participante);
+			controladorInscripcion.cerrarConexionBD();
+			System.out.println("Conexion cerrada...");
+			dispose();
+			System.out.println("");
 		}
 	}
 }
