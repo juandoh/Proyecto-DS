@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -26,7 +27,7 @@ public class DaoSede {
 	
 	//Metodo encargado de guardar los datos de una Sede en la base de datos
 	
-	//Metodo que se encarga de Consultar los datos de un Usario en la base de datos
+	//Metodo que se encarga de Consultar los datos de una Sede en la base de datos
 	public Sede consultarSede( String nomSede, String ciudad){
 		Sede s = new Sede();
 		String sql_select;
@@ -50,8 +51,11 @@ public class DaoSede {
             return s;
 		}catch(SQLException e){ 
 			System.out.println(e); 
-			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");}
-		catch(Exception e){ System.out.println(e); }
+			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");
+		}
+		catch(Exception e){ 
+			System.out.println(e);
+		}
 		return null;
 		
 	}//Fin del metodo consultar
@@ -82,6 +86,41 @@ public class DaoSede {
 		
 		return -1;
 	}//Fin del metodo Modificar
+	
+	//Metodo que se encarga de Consultar los datos de todas las Sedes en la base de datos
+	public ArrayList<Sede> consultarSedesConMatriz(){
+		
+		String sql_select;
+		
+		ArrayList<Sede> miLista = new ArrayList<Sede>();
+		Sede s;
+		
+		sql_select="SELECT * FROM sede ";
+		
+		try{
+			Connection conn= fachada.getConnetion();
+            System.out.println("consultando en la bd");
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            
+            while(tabla.next()){
+            	s = new Sede();
+            	s.setNombreSede(tabla.getString("nombre"));
+            	s.setDireccion(tabla.getString("direccion"));
+            	s.setNumeroSede(tabla.getString("numero_sede"));
+            	s.setCiudad(tabla.getString("ciudad"));
+            	miLista.add(s);
+            }
+
+		}catch(SQLException e){ 
+			System.out.println(e); 
+			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");
+		}
+		catch(Exception e){ 
+			System.out.println(e);
+		}
+		return miLista;	
+	}
 	
 	//Metodo para cerrar la conexion a la base de datos
 	public void cerrarConexionBD(){

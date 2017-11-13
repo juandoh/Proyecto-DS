@@ -6,6 +6,7 @@ package accesoDatos;
  */
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import logica.*;
@@ -47,7 +48,7 @@ public class DaoUsuario {
 		}
 		return -1;
 		
-	}//Fin del método
+	}//Fin del método guardar
 	
 	//Metodo encargado de Modificar los datos del Usuario en la base de datos
 	public int modificarUsuario(String nombre, String apellido, String cedula, String contrasenna, String telefono,
@@ -145,6 +146,41 @@ public class DaoUsuario {
 		
 		catch(Exception e){ System.out.println(e); }
         return null;
+	}
+	
+	//Metodo que se encarga de Consultar los Usuarios que estan registrados en el sistema
+	public ArrayList<Usuario> consultarUsuarioConMatriz(){
+		
+		String sql_select;
+		
+		ArrayList<Usuario> miLista = new ArrayList<Usuario>();
+		
+		Usuario u;
+		
+		sql_select="SELECT nick, tipo, estado, email FROM usuario ";
+		
+		try{
+			Connection conn= fachada.getConnetion();
+            System.out.println("consultando en la bd");
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            
+            while(tabla.next()){
+            	u = new Usuario();
+            	u.setNick(tabla.getString("nick"));
+            	u.setTipo(tabla.getString("tipo"));
+            	u.setEstado(tabla.getString("estado"));
+            	u.setEmail(tabla.getString("email"));
+            	miLista.add(u);
+            }
+		}catch(SQLException e){ 
+			System.out.println(e); 
+			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");
+		}
+		catch(Exception e){ 
+			System.out.println(e);
+		}
+		return miLista;
 	}
 		
 	

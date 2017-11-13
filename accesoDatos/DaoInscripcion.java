@@ -21,6 +21,7 @@ public class DaoInscripcion {
 		// TODO Auto-generated constructor stub
 		fachada = new FachadaBD();
 	}
+	//------------------------------------------------------------------------
 	
 	public int guardarInscripcion( Inscripcion ins ){
 		String sql_guardar;
@@ -48,6 +49,7 @@ public class DaoInscripcion {
 		}
 		return -1;
 	}
+	//-----------------------------------------------------------------------------
 	
 	public preInscripcion consultarPreinscripcion(String cedula){
 		preInscripcion pre = new preInscripcion();
@@ -69,19 +71,73 @@ public class DaoInscripcion {
             	
             	System.out.println("ok, datos de preinscripcion obtenidos.");
             }
-            return pre;
+            //return pre;
 		} catch(SQLException e){ 
 			System.out.println(e); 
 			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");}
 		catch(Exception e){ System.out.println(e); }
-		return null;
+		return pre;
 	}
+	//-------------------------------------------------------------------------------------------
 	
-	public String consultarNoinscrito(String cedula){
+	public String[] consultarEventosPreinscritos(String cedula){
+		int iterador=0;
+		String[] eventos=null;
 		String sql_select;
-		String resultado="";
 		
-		sql_select="SELECT nombre_participante FROM  inscripcion WHERE cedula ='" + cedula + "'";
+		
+		sql_select="SELECT nombre_evento FROM  pre_inscripcion WHERE cedula ='" + cedula + "';";
+		
+        try{
+        	
+	        ResultSet tabla = auxiliarConsulaEventos(sql_select);
+	        
+            while(tabla.next()){
+            	iterador++;
+            	System.out.println("iterador es: "+iterador);
+            }
+            
+            ResultSet tabla2 = auxiliarConsulaEventos(sql_select);
+            
+            //int indice_guardador=iterador-1;
+            eventos= new String[iterador];
+            
+            while(tabla2.next()){
+            	eventos[iterador-1] = tabla2.getString(1);
+            	iterador--;
+            	System.out.println("evento numero : "+iterador+" : "+tabla2.getString(1));
+            }
+        } catch(SQLException e){ 
+			System.out.println(e); 
+			JOptionPane.showMessageDialog(null, "Problema base de datos: Consulta eventos preinscritos.");}
+		catch(Exception e){ System.out.println(e); }
+        
+        return eventos;
+	}
+	//----------------------------------------------------------------------------------------------------------
+	public ResultSet auxiliarConsulaEventos(String sql_select){
+		ResultSet tabla = null;//
+		try{
+			Connection conn= fachada.getConnetion();
+	        System.out.println("consultando en la bd sobre preinscripcion.");
+	        Statement sentencia = conn.createStatement();
+	        tabla = sentencia.executeQuery(sql_select);
+	        //return tabla;
+		} catch(SQLException e){ 
+			System.out.println(e); 
+			JOptionPane.showMessageDialog(null, "Problema en la consulta de eventos.");}
+		catch(Exception e){ System.out.println(e); }
+		return tabla;
+	}
+	//----------------------------------------------------------------------------------------------------------
+	
+	public String[] consultarNoinscrito(String cedula, String evento){
+		String sql_select;
+		String nombre_evento="";
+		String nombre_participante="";
+		String[] resultado = {"", ""};
+		
+		sql_select="SELECT nombre_evento, nombre_participante  FROM  inscripcion WHERE cedula ='" + cedula + "' AND nombre_evento ='"+evento+"';";
 		
 		try{
 			Connection conn= fachada.getConnetion();
@@ -90,8 +146,10 @@ public class DaoInscripcion {
             ResultSet tabla = sentencia.executeQuery(sql_select);
             
             while(tabla.next()){
-            	resultado = tabla.getString(1);
-            	
+            	nombre_evento = tabla.getString(1);
+            	nombre_participante = tabla.getString(2);
+            	resultado[0] = nombre_evento;
+            	resultado[1] = nombre_participante;
             	System.out.println("ok, datos de preinscripcion obtenidos.");
             }
             return resultado;
