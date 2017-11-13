@@ -24,7 +24,7 @@ public class ControladorInscripcion {
 		daoInscripcion = new DaoInscripcion();
 	}
 	
-	//
+	//Metodo para consultar la preInscripcion
 	public preInscripcion consultarPreinscripcion(String cedula){
 		preInscripcion previa = new preInscripcion();
 		System.out.println("Se van a obtener los datos de la preinscripcion.");
@@ -34,14 +34,24 @@ public class ControladorInscripcion {
 		return previa;
 	}
 	
-	//
-	public boolean comprobarNoInscrito(String cedula){
-		String resultado = daoInscripcion.consultarNoinscrito(cedula);
-		if(resultado.equals("")){return false;}
+	//Metodo para consultar los evento Preinscritos
+	public String[] consultarEventosPreinscritos(String cedula){
+		String[] eventos;
+		System.out.println("Se van a obtener los datos de la preinscripcion.");
+		
+		//Se llama al dao para consultar
+		eventos = daoInscripcion.consultarEventosPreinscritos(cedula);
+		return eventos;
+	}
+	
+	//Metodo para comprobar
+	public boolean comprobarNoInscrito(String cedula, String evento){
+		String[] resultado = daoInscripcion.consultarNoinscrito(cedula, evento);
+		if(resultado[0].equals("") && resultado[1].equals("")){return false;}
 		else{return true;}
 	}
 	
-	//
+	//Metodo para insertar una Inscripcion en el sistema
 	public int insertarInscripcion (String nombre_evento, String nombre_participante, String cedula, String fecha, String telefono, String email){
 		Inscripcion ins = new Inscripcion(nombre_evento, nombre_participante, cedula, fecha, telefono, email);
 		

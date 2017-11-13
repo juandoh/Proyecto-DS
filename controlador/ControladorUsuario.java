@@ -13,6 +13,7 @@ public class ControladorUsuario {
 	
 	DaoUsuario daoUsuario;
 
+	//Constructor
 	public ControladorUsuario() {
 		// TODO Auto-generated constructor stub
 		daoUsuario = new DaoUsuario();
