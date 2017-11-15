@@ -175,14 +175,14 @@ public class LoginGUI extends JFrame {
 		Login l;
 		
 		l = controladorLogin.consultarLogin(nick, contra);
+		tipo = l.getTipo();
 		if ( campoUsuario.getText().equals("") || (String.valueOf(campoPassword.getPassword())).equals("") ){
 			JOptionPane.showMessageDialog(null, "Por favor llene los campos", "Campos_Vacios", JOptionPane.WARNING_MESSAGE);
 		} else if ( l.equals(null) ){
 			JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta");
-		} else {//Codigo para abrir la aplicacion dependiendo del perfil del usuario
-			tipo = l.getTipo();
+		} else if ( (tipo!=null) && tipo.equals("administrador") ){//Codigo para abrir la aplicacion dependiendo del perfil del usuario
 			
-			if ( (tipo!=null) && tipo.equals("administrador") ){
+				JOptionPane.showMessageDialog(null, "Bienvenido al Sistema", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 				/*PanelAdministradorGUI aplicacion1 = new PanelAdministradorGUI(){
 					public void dispose(){
 						getFrame().setVisible(true);
@@ -197,7 +197,8 @@ public class LoginGUI extends JFrame {
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				dispose();
 				
-			} else if ( (tipo!=null) && tipo.equals("gerente") ){
+		} else if ( (tipo!=null) && tipo.equals("GERENTE") ){
+				JOptionPane.showMessageDialog(null, "Bienvenido al Sistema", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 				/*PanelGerenteGUI aplicacion1 = new PanelGerenteGUI(){
 					public void dispose(){
 						getFrame().setVisible(true);
@@ -212,7 +213,8 @@ public class LoginGUI extends JFrame {
 				aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				dispose();
 				
-			} else if ((tipo!=null) && tipo.equals("operador")){
+		} else if ((tipo!=null) && tipo.equals("OPERADOR")){
+			JOptionPane.showMessageDialog(null, "Bienvenido al Sistema", "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
 				/*PanelOperadorGUI aplicacion1 = new PanelOperadorGUI(){
 					public void dispose(){
 						getFrame().setVisible(true);
@@ -231,6 +233,5 @@ public class LoginGUI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Usuario o Contraseña inconrrecta", "Datos_Invalidos", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	}
 
 }
