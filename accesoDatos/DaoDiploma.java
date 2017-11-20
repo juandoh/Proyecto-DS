@@ -93,7 +93,7 @@ public class DaoDiploma {
 	}
 	//--------------------------------------------------------------------------------------
 	
-	public String comprobarParticipanteParticipaEvento(String cedula, String nombre_evento){
+	public String comprobarParticipanteInscritoEvento(String cedula, String nombre_evento){
 		String sql_select, nombre="";
 		
 		sql_select="SELECT nombre_participante FROM inscripcion WHERE cedula ='" + cedula + "' AND nombre_evento = '" + nombre_evento + "';";
@@ -112,6 +112,28 @@ public class DaoDiploma {
 			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");}
 		catch(Exception e){ System.out.println(e); }
 		return nombre;
+	}
+	//--------------------------------------------------------------------------------------
+	
+	public String comprobarEventoRealizado(String nombre_evento){
+		String sql_select, estado="";
+		
+		sql_select="SELECT estado FROM evento WHERE nombre = '" + nombre_evento + "';";
+		
+		try{
+			Connection conn= fachada.getConnetion();
+            Statement sentencia = conn.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            
+            while(tabla.next()){
+            	estado = tabla.getString(1);
+            }
+            //return pre;
+		} catch(SQLException e){ 
+			System.out.println(e); 
+			JOptionPane.showMessageDialog(null, "Ocurrio un problema en la BASE DE DATOS del Sistema");}
+		catch(Exception e){ System.out.println(e); }
+		return estado;
 	}
 	//--------------------------------------------------------------------------------------
 	
