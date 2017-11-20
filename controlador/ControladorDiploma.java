@@ -54,13 +54,25 @@ public class ControladorDiploma {
 	//--------------------------------------------------------------------------------------
 	//Si se puede obtener el nombre del participante a partir de cedula y nombre de evento en la tabla inscripcion,
 	//significa que el participante si participo en ese evento.
-	public boolean comprobarParticipanteParticipaEvento(String cedula, String nombre_evento){
-		String nombre = daoDiploma.comprobarParticipanteParticipaEvento(cedula, nombre_evento);
+	public boolean comprobarParticipanteInscritoEvento(String cedula, String nombre_evento){
+		String nombre = daoDiploma.comprobarParticipanteInscritoEvento(cedula, nombre_evento);
 		
 		if(nombre.equals("") || nombre == null){
 			return false;
 		}else{
 			return true;
+		}
+	}
+	//--------------------------------------------------------------------------------------
+	//Verifica que un evento ya se haya realizado, para evitar la admision de diplomas generados para eventos que se
+	//encuentren en proceso de realizacion o cancelado.
+	public boolean comprobarEventoRealizado(String nombre_evento){
+		String estado = daoDiploma.comprobarEventoRealizado(nombre_evento);
+		
+		if(estado.equals("realizado")){
+			return true;
+		}else{
+			return false;
 		}
 	}
 	//--------------------------------------------------------------------------------------
