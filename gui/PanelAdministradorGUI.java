@@ -86,6 +86,11 @@ public class PanelAdministradorGUI extends JFrame {
 		btnVerUsuario.setMnemonic('V');
 		btnVerUsuario.setForeground(new Color(255, 255, 255));
 		btnVerUsuario.setBackground(new Color(0, 0, 0));
+		btnVerUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				botonVerUsuarioActionPerformed(evt);
+			}
+		});
 		btnVerUsuario.setBounds(87, 165, 144, 23);
 		contentPane.add(btnVerUsuario);
 		
@@ -132,6 +137,18 @@ public class PanelAdministradorGUI extends JFrame {
 	//Metodo que se encarga del evento del boton Cancelar
 	private void botonModificarUsuarioActionPerformed( ActionEvent evt ){
 		ModificarUsuarioGUI aplicacion1 = new ModificarUsuarioGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
+		aplicacion1.setVisible(true);
+		dispose();
+	}
+	
+	//Metodo que se encarga del evento del boton VerUsuario
+	private void botonVerUsuarioActionPerformed(ActionEvent evt){
+		ListarUsuarioGUI aplicacion1 = new ListarUsuarioGUI(){
 			public void dispose(){
 				getFrame().setVisible(true);
 				super.dispose();
