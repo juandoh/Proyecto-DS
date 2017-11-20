@@ -315,7 +315,7 @@ public class GenerarDiplomaGUI extends JFrame{
 	
 	private void botonGuardarActionPerformed(ActionEvent evt){
 		String nombre_participante, cedula, fecha, nombre_evento, horas, tipo;
-		boolean diplomaInexistente, participanteParticipaEvento;
+		boolean diplomaInexistente, participanteInscritoEvento, comprobarEventoRealizado;
 		
 		nombre_participante = campoNombreP.getText();
 		cedula = campoCedula.getText();
@@ -331,7 +331,8 @@ public class GenerarDiplomaGUI extends JFrame{
 		tipo = (String) campoTipo.getSelectedItem();
 		
 		diplomaInexistente = controladorDiploma.comprobarDiplomaInexistente(cedula, nombre_evento);
-		participanteParticipaEvento = controladorDiploma.comprobarParticipanteParticipaEvento(cedula, nombre_evento);
+		participanteInscritoEvento = controladorDiploma.comprobarParticipanteInscritoEvento(cedula, nombre_evento);
+		comprobarEventoRealizado = controladorDiploma.comprobarEventoRealizado(nombre_evento);
 		
 		if(switchNavegador == 1){
 			JOptionPane.showMessageDialog(null, "Seleccione una ciudad y luego un evento para poder continuar.");
@@ -339,8 +340,10 @@ public class GenerarDiplomaGUI extends JFrame{
 			JOptionPane.showMessageDialog(null, "Por favor, asegurese de llenar todos los campos.");
 		}else if(diplomaInexistente == false){
 			JOptionPane.showMessageDialog(null, "El diploma que desea generar ya existe.", "Diploma existente", JOptionPane.INFORMATION_MESSAGE);
-		}else if(participanteParticipaEvento == false){
+		}else if(participanteInscritoEvento == false){
 			JOptionPane.showMessageDialog(null, "El participante indicado no se inscribio al evento seleccionado.", "Participacion nula", JOptionPane.INFORMATION_MESSAGE);
+		}else if(comprobarEventoRealizado == false){
+			JOptionPane.showMessageDialog(null, "El evento indicado no se ha realizado o ha sido cancelado. No pueden existir constancias de asistencia para este evento.", "Evento no valido", JOptionPane.INFORMATION_MESSAGE);
 		}else{
 			int result = controladorDiploma.generarDiploma(nombre_participante, cedula, fecha, nombre_evento, horas, tipo);
 			
@@ -351,9 +354,6 @@ public class GenerarDiplomaGUI extends JFrame{
 			campoTipo.setEditable(false);
 			campoEvento.setEditable(false);
 			btnImprimir.setEnabled(true);}
-			else{
-				controladorDiploma.cerrarConexionBD();
-				System.out.println("Conexion cerrada...");}
 			
 		}
 		
@@ -382,6 +382,7 @@ public class GenerarDiplomaGUI extends JFrame{
 	//--------------------------------------------------------------------------------------
 	
 	private void botonImprimirActionPerformed(ActionEvent evt){
+		btnImprimir.setEnabled(false);
 		String nombre_participante, cedula, fecha, nombre_evento, horas, tipo;
 		nombre_participante = campoNombreP.getText();
 		cedula = campoCedula.getText();
@@ -396,15 +397,15 @@ public class GenerarDiplomaGUI extends JFrame{
 		tipo = (String) campoTipo.getSelectedItem();
 		
 		VerDiploma aplicacion1 = new VerDiploma(){
-			public void dispose(){
+			/*public void dispose(){
 				getFrame().setVisible(true);
 				super.dispose();
-			}
+			}*/
 		};
 		aplicacion1.setVisible(true);
 		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		aplicacion1.asignarDatos(nombre_participante, cedula, fecha, nombre_evento, horas, tipo);
-		//dispose();//noooo
+		dispose();
 	}
 	//--------------------------------------------------------------------------------------
 
