@@ -119,7 +119,7 @@ public class PanelOperadorGUI extends JFrame {
 		btnGenerarDiploma.setForeground(new Color(255, 255, 255));
 		btnGenerarDiploma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+				botonGenerarDiplomaActionPerformed(evt);
 			}
 		});
 		btnGenerarDiploma.setBounds(62, 156, 149, 23);
@@ -129,7 +129,7 @@ public class PanelOperadorGUI extends JFrame {
 		JButton btnReporte = new JButton("Ver Reportes");
 		btnReporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				
+				botonListarDiplomasActionPerformed(evt);
 			}
 		});
 		
@@ -220,11 +220,37 @@ public class PanelOperadorGUI extends JFrame {
 		dispose();
 	}
 	
+	//Metodo que se encarga del evento del boton Generar Diplomas
+	private void botonGenerarDiplomaActionPerformed( ActionEvent evt ){
+		GenerarDiplomaGUI aplicacion1 = new GenerarDiplomaGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
+		aplicacion1.setVisible(true);
+		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
+	}
+	
+	private void botonListarDiplomasActionPerformed(ActionEvent evt){
+		ListarDiplomasGUI aplicacion1 = new ListarDiplomasGUI(){
+			public void dispose(){
+				getFrame().setVisible(true);
+				super.dispose();
+			}
+		};
+		aplicacion1.setVisible(true);
+		aplicacion1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dispose();
+	}
+	
 	
 	//Metodo que se encarga del evento del boton Salir
 	private void botonSalirActionPerformed( ActionEvent evt ){
 		System.out.println("Conexion cerrada...");
 		dispose();
 		
-	}
+	}	
+	
 }
